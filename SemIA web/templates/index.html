@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SemIA — Sistema de predicción agrícola con IA para municipios colombianos. Descubre los cultivos con mayor rendimiento para tu región.">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <title>SemIA — Predictor Agrícola con IA</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Marked.js para markdown en el chat -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="#inicio" class="logo">
+            <div class="logo-wrap">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SemIA Logo">
+            </div>
+            <span>SemIA</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#inicio" onclick="closeMenu()">Inicio</a></li>
+            <li><a href="#sobre-semia" onclick="closeMenu()">¿Qué es SemIA?</a></li>
+            <li><a href="#dashboard" onclick="closeMenu()">Dashboard</a></li>
+            <li><a href="#predictor" onclick="closeMenu()">Predictor</a></li>
+            <li><a href="#contacto" onclick="closeMenu()">Contacto</a></li>
+        </ul>
+
+        <a href="#predictor" class="nav-cta-btn">
+            <i class="fas fa-seedling"></i> Predecir Cultivo
+        </a>
+
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menú">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="inicio" class="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-container">
+        <div class="hero-content fade-in-up">
+            <div class="hero-badge">
+                <i class="fas fa-leaf"></i> Inteligencia Artificial Agrícola
+            </div>
+            <h1>El futuro de la<br><span class="highlight">agricultura colombiana</span><br>en tus manos</h1>
+            <p>SemIA usa Machine Learning para predecir qué cultivos generarán mayor rendimiento en tu municipio, ayudando a agricultores y tomadores de decisión a planificar mejor sus siembras.</p>
+            <div class="hero-actions">
+                <a href="#predictor" class="btn-primary">
+                    <i class="fas fa-chart-line"></i> Hacer Predicción
+                </a>
+                <a href="#sobre-semia" class="btn-outline">
+                    Conocer más <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-visual fade-in-right">
+            <div class="hero-img-wrap">
+                <img src="{{ url_for('static', filename='img/cultivo.webp') }}" alt="Agricultura Colombiana">
+                <div class="hero-stat-card card-top">
+                    <span class="stat-icon">🌾</span>
+                    <div>
+                        <div class="stat-val">351K+</div>
+                        <div class="stat-lbl">Registros de cultivos</div>
+                    </div>
+                </div>
+                <div class="hero-stat-card card-bot">
+                    <span class="stat-icon">📍</span>
+                    <div>
+                        <div class="stat-val">Todo Colombia</div>
+                        <div class="stat-lbl">Cobertura nacional</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hero-scroll-hint">
+        <i class="fas fa-chevron-down bounce"></i>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ¿QUÉ ES SEMIA?
+════════════════════════════════════════ -->
+<section id="sobre-semia" class="section section-light">
+    <div class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">¿Qué es <span class="green">SemIA</span>?</h2>
+            <p class="section-subtitle">Inteligencia Artificial al servicio de la agricultura colombiana. Predicciones basadas en datos reales del MADR.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feat-icon-wrap green-bg">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Modelo Random Forest</h3>
+                <p>Entrenado con más de 351 mil registros de Evaluaciones Agropecuarias Municipales (EVA) de 2007 a 2024, logrando alta precisión predictiva.</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay:0.15s">
+                <div class="feat-icon-wrap gold-bg">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Cobertura Nacional</h3>
+                <p>Datos de todos los departamentos y municipios de Colombia donde se han registrado evaluaciones agropecuarias con el Ministerio de Agricultura.</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay:0.3s">
+                <div class="feat-icon-wrap blue-bg">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h3>Top 5 Cultivos</h3>
+                <p>Obtén el ranking de los 5 cultivos con mayor rendimiento proyectado en toneladas por hectárea para tu municipio, año y semestre específico.</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay:0.45s">
+                <div class="feat-icon-wrap teal-bg">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Producción Estimada</h3>
+                <p>No solo predice el rendimiento por hectárea, sino también la producción total estimada en toneladas según el área que planeas sembrar.</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay:0.6s">
+                <div class="feat-icon-wrap red-bg">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Por Semestre</h3>
+                <p>Diferencia entre el primer semestre (A) y el segundo semestre (B) del año, adaptándose a los ciclos agrícolas reales del país.</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay:0.75s">
+                <div class="feat-icon-wrap purple-bg">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Datos Oficiales</h3>
+                <p>Toda la información proviene de fuentes oficiales del Ministerio de Agricultura y Desarrollo Rural de Colombia, garantizando confiabilidad.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ESTADÍSTICAS
+════════════════════════════════════════ -->
+<section class="stats-section">
+    <div class="section-container">
+        <div class="stats-grid">
+            <div class="stat-box fade-in">
+                <div class="stat-number" data-target="351920">0</div>
+                <div class="stat-desc">Registros en el dataset</div>
+            </div>
+            <div class="stat-box fade-in" style="animation-delay:0.1s">
+                <div class="stat-number" data-target="18">0</div>
+                <div class="stat-desc">Años de datos (2007–2024)</div>
+            </div>
+            <div class="stat-box fade-in" style="animation-delay:0.2s">
+                <div class="stat-number" data-target="32">0</div>
+                <div class="stat-desc">Departamentos cubiertos</div>
+            </div>
+            <div class="stat-box fade-in" style="animation-delay:0.3s">
+                <div class="stat-number" data-target="82">0</div>
+                <div class="stat-desc">% precisión del modelo (R²)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     DASHBOARD
+════════════════════════════════════════ -->
+<section id="dashboard" class="section section-green-soft">
+    <div class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">Dashboard <span class="green">Interactivo</span></h2>
+            <p class="section-subtitle">Explora los datos agrícolas de Colombia en tiempo real. Filtra por departamento, municipio, cultivo y año.</p>
+        </div>
+
+        <div class="dashboard-wrapper fade-in">
+            <div class="dashboard-frame">
+                <iframe
+                    id="looker-iframe"
+                    src="https://datastudio.google.com/embed/reporting/4519c930-4223-46cf-ad24-0104a0ccdf2a"
+                    width="100%"
+                    height="620"
+                    frameborder="0"
+                    allowfullscreen
+                    title="Dashboard SemIA — Datos agrícolas Colombia">
+                </iframe>
+            </div>
+            <p class="dashboard-note">
+                <i class="fas fa-info-circle"></i>
+                Dashboard interactivo con datos reales del Ministerio de Agricultura y Desarrollo Rural de Colombia.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PREDICTOR / CHATBOT
+════════════════════════════════════════ -->
+<section id="predictor" class="section section-light">
+    <div class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">Predictor <span class="green">SemIA</span></h2>
+            <p class="section-subtitle">Ingresa los datos de tu consulta y obtén al instante los cultivos con mayor potencial para tu municipio.</p>
+        </div>
+
+        <div class="predictor-layout">
+            <!-- Panel izquierdo: formulario -->
+            <div class="predictor-form-panel fade-in">
+                <div class="form-card">
+                    <div class="form-header">
+                        <div class="bot-avatar">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div>
+                            <h3>Asistente SemIA</h3>
+                            <span class="status-dot"></span><small>En línea</small>
+                        </div>
+                    </div>
+
+                    <form id="predictor-form" onsubmit="return false;">
+                        <!-- Municipio -->
+                        <div class="form-group">
+                            <label for="sel-depto"><i class="fas fa-map"></i> Departamento</label>
+                            <select id="sel-depto" onchange="onDeptoChange()">
+                                <option value="">-- Selecciona departamento --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="sel-municipio"><i class="fas fa-map-marker-alt"></i> Municipio</label>
+                            <select id="sel-municipio" disabled>
+                                <option value="">-- Selecciona municipio --</option>
+                            </select>
+                        </div>
+
+                        <!-- Año -->
+                        <div class="form-group">
+                            <label for="inp-anio"><i class="fas fa-calendar"></i> Año de proyección</label>
+                            <input type="number" id="inp-anio" min="2020" max="2035"
+                                   value="2025" placeholder="Ej: 2025">
+                        </div>
+
+                        <!-- Semestre -->
+                        <div class="form-group">
+                            <label><i class="fas fa-sun"></i> Semestre</label>
+                            <div class="semestre-toggle">
+                                <button type="button" id="btn-sem-a" class="sem-btn active" onclick="setSemestre('A')">
+                                    <i class="fas fa-sun"></i> Semestre A
+                                </button>
+                                <button type="button" id="btn-sem-b" class="sem-btn" onclick="setSemestre('B')">
+                                    <i class="fas fa-cloud-rain"></i> Semestre B
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Área -->
+                        <div class="form-group">
+                            <label for="inp-area"><i class="fas fa-ruler-combined"></i> Área a sembrar (ha)</label>
+                            <input type="number" id="inp-area" min="0.1" step="0.1"
+                                   value="10" placeholder="Ej: 10.5">
+                        </div>
+
+                        <button id="btn-predict" type="submit" onclick="hacerPrediccion()">
+                            <i class="fas fa-magic"></i> Predecir Cultivos
+                        </button>
+                    </form>
+
+                    <!-- Small talk / pregunta libre -->
+                    <div class="smalltalk-area">
+                        <p class="smalltalk-label">¿Tienes alguna pregunta?</p>
+                        <div class="smalltalk-input-wrap">
+                            <input type="text" id="inp-smalltalk"
+                                   placeholder="Ej: ¿Quién eres? ¿Cómo funcionas?"
+                                   onkeypress="if(event.key==='Enter') enviarSmallTalk()">
+                            <button onclick="enviarSmallTalk()" title="Enviar">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel derecho: resultado del chat -->
+            <div class="predictor-chat-panel fade-in" style="animation-delay:0.2s">
+                <div class="chat-window" id="chat-window">
+                    <!-- Mensaje de bienvenida inicial -->
+                    <div class="msg-row bot-row">
+                        <div class="msg-avatar"><i class="fas fa-seedling"></i></div>
+                        <div class="msg-bubble bot-bubble">
+                            <p>¡Hola! Soy <strong>SemIA</strong> 🌾</p>
+                            <p>Puedo predecir qué cultivos tienen mayor rendimiento en tu municipio. Selecciona tu departamento y municipio, define el año, semestre y área a sembrar, y presiona <em>«Predecir Cultivos»</em>.</p>
+                            <p>También puedes hacerme preguntas en el campo de texto de abajo.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicador de carga -->
+                <div class="typing-indicator" id="typing-indicator" style="display:none;">
+                    <div class="msg-avatar"><i class="fas fa-seedling"></i></div>
+                    <div class="typing-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER / CONTACTO
+════════════════════════════════════════ -->
+<footer id="contacto" class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="footer-logo">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="SemIA">
+                <span>SemIA</span>
+            </div>
+            <p>Inteligencia Artificial al servicio de la agricultura colombiana. Predicciones basadas en datos oficiales del MADR.</p>
+            <div class="footer-social">
+                <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h4>Navegación</h4>
+            <ul>
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre-semia">¿Qué es SemIA?</a></li>
+                <li><a href="#dashboard">Dashboard</a></li>
+                <li><a href="#predictor">Predictor</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Datos &amp; Fuentes</h4>
+            <ul>
+                <li><a href="https://www.datos.gov.co/" target="_blank" rel="noopener">Datos Abiertos Colombia</a></li>
+                <li><a href="https://www.minagricultura.gov.co/" target="_blank" rel="noopener">MADR</a></li>
+                <li><a href="https://www.dane.gov.co/" target="_blank" rel="noopener">DANE</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Contacto</h4>
+            <p><i class="fas fa-envelope"></i> info@semia.co</p>
+            <p><i class="fas fa-map-marker-alt"></i> Colombia</p>
+            <p><i class="fas fa-graduation-cap"></i> Proyecto TFM — UNIR</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 SemIA. Todos los derechos reservados. Desarrollado con ❤️ para la agricultura colombiana.</p>
+    </div>
+</footer>
+
+<!-- JS -->
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

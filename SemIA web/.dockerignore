@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+
+.git/
+.gitignore
+test_model.py
+README.md
+.env
+venv/
+env/
